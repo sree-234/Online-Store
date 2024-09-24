@@ -1,6 +1,7 @@
 // src/components/Login.jsx
 import React, { useRef } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function Login() {
   const emailRef = useRef();
@@ -102,6 +103,12 @@ export default function Login() {
         >
           LOGIN
         </button>
+        <p style={{ textAlign: "center", color: "white" }}>
+          Don't have an account?{" "}
+          <Link to="/signup" style={{ color: "#ff884d", textDecoration: "underline" }}>
+            Sign Up
+          </Link>
+        </p>
       </form>
     </div>
   );

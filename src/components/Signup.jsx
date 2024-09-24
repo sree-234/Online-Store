@@ -1,6 +1,7 @@
 // src/components/Signup.jsx
 import React, { useRef } from "react";
 import { useAuth } from "../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
   const emailRef = useRef();
@@ -100,6 +101,12 @@ export default function Signup() {
         >
           SIGN UP
         </button>
+        <p style={{ textAlign: "center", color: "white" }}>
+          Already a user ?{" "}
+          <Link to="/login" style={{ color: "#ff884d", textDecoration: "underline" }}>
+            Log In
+          </Link>
+        </p>
       </form>
     </div>
   );

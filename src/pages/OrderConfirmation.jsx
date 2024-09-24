@@ -1,26 +1,36 @@
-// src/pages/OrderConfirmation.jsx
-import React from "react";
-import Navbar from "../components/Navbar"; // Import the Navbar component
+import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar";
 
 export default function OrderConfirmation() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigate("/"); // Redirect to home after 5 seconds
+    }, 5000);
+    
+    return () => clearTimeout(timer); // Cleanup timer on unmount
+  }, [navigate]);
+
   const confirmationStyle = {
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
     height: "100vh",
+    width: "180vh",
     backgroundColor: "black",
     color: "white",
-    paddingTop: "6rem", // Increased padding to make space for the fixed navbar
+    paddingTop: "6rem", // Space for navbar
+    textAlign: "center",
   };
 
   return (
-    <div>
-      <Navbar /> {/* Navbar is fixed at the top */}
       <div style={confirmationStyle}>
         <h1>Thank You for Your Order!</h1>
         <p>Your order has been placed successfully.</p>
+        <p>You will be redirected to the home page shortly...</p>
       </div>
-    </div>
   );
 }
