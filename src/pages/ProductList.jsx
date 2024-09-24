@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { db } from "../firebaseConfig";
 import { collection, getDocs } from "firebase/firestore";
+import Navbar from "../components/Navbar"; 
 
 export default function ProductList() {
   const [products, setProducts] = useState([]);
@@ -18,6 +19,8 @@ export default function ProductList() {
 
   return (
     <div>
+      <Navbar />
+    <div>
       <h1>Products</h1>
       <div className="product-list">
         {products.map((product) => (
@@ -28,6 +31,7 @@ export default function ProductList() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }
