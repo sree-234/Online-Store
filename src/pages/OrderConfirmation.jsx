@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import Navbar from "../components/Navbar";
 
 export default function OrderConfirmation() {
   const navigate = useNavigate();
@@ -8,7 +7,7 @@ export default function OrderConfirmation() {
   useEffect(() => {
     const timer = setTimeout(() => {
       navigate("/"); // Redirect to home after 5 seconds
-    }, 5000);
+    }, 3000);
     
     return () => clearTimeout(timer); // Cleanup timer on unmount
   }, [navigate]);

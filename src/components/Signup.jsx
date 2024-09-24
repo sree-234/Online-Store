@@ -1,22 +1,25 @@
 // src/components/Signup.jsx
 import React, { useRef } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
 
 export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { signup } = useAuth();
+  const navigate = useNavigate(); // Initialize useNavigate
 
   async function handleSubmit(e) {
     e.preventDefault();
     try {
       await signup(emailRef.current.value, passwordRef.current.value);
-      // Redirect to user dashboard or homepage
+      navigate("/profile"); // Redirect to profile page after successful signup
     } catch (error) {
       console.error(error);
+      // Optionally handle error feedback to user
     }
   }
+
   const containerStyle = {
     height: "100vh", // Full height of the viewport
     width: "100vw",  // Full width of the viewport
@@ -44,6 +47,7 @@ export default function Signup() {
     letterSpacing: "5px",
     fontSize: "45px",
     fontWeight: "bold",
+    color: "white", // Set heading color to white
   };
 
   const inputStyle = {
@@ -54,6 +58,7 @@ export default function Signup() {
     marginTop: ".2rem",
     borderBottom: "1px solid white",
     textAlign: "center", // centers the text in input
+    color: "white", // Set input text color to white
   };
 
   const buttonStyle = {
@@ -102,7 +107,7 @@ export default function Signup() {
           SIGN UP
         </button>
         <p style={{ textAlign: "center", color: "white" }}>
-          Already a user ?{" "}
+          Already a user?{" "}
           <Link to="/login" style={{ color: "#ff884d", textDecoration: "underline" }}>
             Log In
           </Link>
