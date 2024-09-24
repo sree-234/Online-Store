@@ -14,7 +14,7 @@ export default function Checkout() {
   const handlePayment = () => {
     // Navigate to the Order Confirmation page
     alert("Payment successful!");
-    navigate.push("/order-confirmation"); // Navigate to the Order Confirmation page
+    navigate("/order-confirmation"); // Navigate to the Order Confirmation page
   };
 
   return (

@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import { useCart } from "../contexts/CartContext"; // Import CartContext
 import backgroundImage from "../images/back.jpg"; // Ensure the same background
+import CheckoutButton from "../components/CheckoutButton";
 
 export default function Cart() {
   const { cart, removeFromCart } = useCart(); // Get cart items and remove function
@@ -57,7 +58,10 @@ export default function Cart() {
               </button>
             </div>
           ))}
+          
           <h2 style={{ color: "#000" }}>Total: ${total} USD</h2> {/* Ensure text color is black */}
+          <CheckoutButton />
+           <p>   
           <button
             onClick={() => navigate("/")} // Return to shopping (or "/home" depending on route)
             style={{
@@ -72,6 +76,7 @@ export default function Cart() {
           >
             Return to Shopping
           </button>
+          </p>
         </div>
       )}
     </div>
