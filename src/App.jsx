@@ -14,6 +14,7 @@ import Headphones from "./pages/Headphones";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 
+
 function App() {
   return (
     <Router>
@@ -25,7 +26,7 @@ function App() {
             <Route path="/laptops" element={<Laptops />} /> {/* Fixed to use element */}
             <Route path="/headphones" element={<Headphones />} /> {/* Fixed to use element */}
             <Route path="/products" element={<ProductList />} />
-            <Route path="/products/:productId" element={<ProductDetails />} />
+            <Route path="/products:/productId" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />

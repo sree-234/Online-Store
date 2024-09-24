@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import { useCart } from "../contexts/CartContext"; // Import CartContext
 import backgroundImage from "../images/back.jpg"; // Ensure the same background
+import CheckoutButton from "../components/CheckoutButton";
 
 export default function Cart() {
   const { cart, updateCartQuantity } = useCart(); // Use updateCartQuantity for quantity management
@@ -117,11 +118,14 @@ export default function Cart() {
               </div>
             </div>
           ))}
-
-          {/* Total Price */}
+  {/* Total Price */}
           <h2 style={{ color: "green", textAlign: "right" }}>Total: {total} INR</h2>
 
           {/* Return to Shopping Button */}
+        
+          <h2 style={{ color: "#000" }}>Total: ${total} USD</h2> {/* Ensure text color is black */}
+          <CheckoutButton />
+           <p>   
           <button
             onClick={() => navigate("/")} // Return to shopping
             style={{
@@ -138,6 +142,7 @@ export default function Cart() {
           >
             Return to Shopping
           </button>
+          </p>
         </div>
       )}
     </div>

@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
 import { useCart } from "../contexts/CartContext";
+import Navbar from "../components/Navbar";
 
 export default function ProductDetails() {
   const { productId } = useParams();
@@ -21,11 +22,14 @@ export default function ProductDetails() {
   if (!product) return <div>Loading...</div>;
 
   return (
+    <div className="flex flex-col min-h-screen bg-black text-white ">
+    <Navbar />
     <div>
       <h1>{product.name}</h1>
       <p>{product.description}</p>
       <p>{product.price} USD</p>
       <button onClick={() => addToCart(product)}>Add to Cart</button>
+    </div>
     </div>
   );
 }
