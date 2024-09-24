@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Your one-stop online store for all your shopping needs" />
+    <meta name="keywords" content="online store, shopping, ecommerce, products" />
+    <meta name="author" content="Your Name" />
+    <title>Online Store - Shop Now!</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+</head>
+<body>
+    <div id="loading">Loading...</div>
+    <div id="root" style="display: none;"></div>
+    <div id="error" style="display: none;">An error occurred while loading the app.</div>
+
+    <script type="module" src="/src/main.jsx"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('loading').style.display = 'none';
+            document.getElementById('root').style.display = 'block';
+        });
+    </script>
+</body>
+</html>
