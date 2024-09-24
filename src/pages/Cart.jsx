@@ -5,10 +5,11 @@ import backgroundImage from "../images/back.jpg"; // Ensure the same background
 import CheckoutButton from "../components/CheckoutButton";
 
 export default function Cart() {
-  const { cart, removeFromCart } = useCart(); // Get cart items and remove function
+  const { cart, updateCartQuantity } = useCart(); // Use updateCartQuantity for quantity management
   const navigate = useNavigate(); // For navigation
 
-  const total = cart.reduce((sum, item) => sum + item.price, 0); // Calculate total price
+  // Calculate total price based on product quantity
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
     <div
@@ -27,43 +28,106 @@ export default function Cart() {
         paddingTop: "50px",
       }}
     >
-      <h1 style={{ fontSize: "4rem", color: "#000" }}>Your Cart</h1>
+      {/* Cart Heading */}
+      <h1
+        style={{
+          margin: 0,
+          fontSize: "8rem",
+          color: "transparent",
+          WebkitTextStroke: "5px white", // White outline for "Your"
+          textTransform: "uppercase",
+          fontFamily: "sans-serif",
+        }}
+      >
+        Your
+      </h1>
+      <h1
+        style={{
+          fontSize: "8rem",
+          margin: "10px 0",
+          color: "transparent",
+          WebkitTextStroke: "5px black", // Black outline for "Cart"
+          textTransform: "uppercase",
+          fontFamily: "sans-serif",
+        }}
+      >
+        Cart
+      </h1>
+
       {cart.length === 0 ? (
-        <p style={{ color: "#000" }}>Your cart is empty</p> // Ensure the text is visible
+        <p style={{ color: "white", fontSize: "1.5rem" }}>Your cart is empty</p>
       ) : (
-        <div style={{ width: "50%", textAlign: "center", color: "#000" }}> {/* Center align content */}
+        <div
+          style={{
+            width: "60%", // Slightly wider for better layout
+            textAlign: "left",
+            backgroundColor: "rgba(255, 255, 255, 0.9)", // Mild-colored white box
+            padding: "20px",
+            borderRadius: "10px", // Rounded corners for the box
+            boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
+          }}
+        >
           {cart.map((item, index) => (
             <div
               key={index}
               style={{
+                display: "flex",
+                justifyContent: "space-between", // Keep name and price on opposite sides
+                alignItems: "center",
                 borderBottom: "1px solid #ccc",
                 padding: "10px 0",
                 marginBottom: "10px",
               }}
             >
-              <h3 style={{ color: "#000" }}>{item.name}</h3> {/* Ensure text color is black */}
-              <p style={{ color: "#000" }}>{item.price} INR</p> {/* Ensure price text is black */}
-              <button
-                onClick={() => removeFromCart(item.id)} // Remove item from cart
-                style={{
-                  backgroundColor: "red",
-                  color: "#fff",
-                  border: "none",
-                  padding: "5px 10px",
-                  cursor: "pointer",
-                  borderRadius: "5px",
-                }}
-              >
-                Remove from Cart
-              </button>
+              {/* Product Name and Price */}
+              <div>
+                <h3 style={{ color: "#000", margin: 0 }}>{item.name}</h3>
+                <p style={{ color: "#000", margin: 0 }}>{item.price} INR</p>
+                <p style={{ color: "#000", margin: 0 }}>Quantity: {item.quantity}</p> {/* Display quantity */}
+              </div>
+
+              {/* Quantity Buttons */}
+              <div style={{ display: "flex", alignItems: "center" }}>
+                <button
+                  onClick={() => updateCartQuantity(item.id, item.quantity - 1)} // Decrement quantity
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    color: "red",
+                    fontSize: "1.5rem",
+                    cursor: "pointer",
+                    marginRight: "10px",
+                  }}
+                >
+                  &minus;
+                </button>
+                <span style={{ fontSize: "1.5rem", color: "#000" }}>x{item.quantity}</span> {/* Quantity display */}
+                <button
+                  onClick={() => updateCartQuantity(item.id, item.quantity + 1)} // Increment quantity
+                  style={{
+                    backgroundColor: "transparent",
+                    border: "none",
+                    color: "green",
+                    fontSize: "1.5rem",
+                    cursor: "pointer",
+                    marginLeft: "10px",
+                  }}
+                >
+                  &#43;
+                </button>
+              </div>
             </div>
           ))}
-          
+  {/* Total Price */}
+          <h2 style={{ color: "green", textAlign: "right" }}>Total: {total} INR</h2>
+
+          {/* Return to Shopping Button */}
+        
           <h2 style={{ color: "#000" }}>Total: ${total} USD</h2> {/* Ensure text color is black */}
           <CheckoutButton />
            <p>   
           <button
-            onClick={() => navigate("/")} // Return to shopping (or "/home" depending on route)
+            onClick={() => navigate("/")} // Return to shopping
             style={{
               marginTop: "20px",
               fontSize: "1.5rem",
@@ -72,6 +136,8 @@ export default function Cart() {
               padding: "10px 20px",
               borderRadius: "5px",
               cursor: "pointer",
+              textAlign: "center",
+              width: "100%", // Make the button full width
             }}
           >
             Return to Shopping
