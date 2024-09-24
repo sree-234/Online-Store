@@ -12,6 +12,7 @@ import OrderConfirmation from "./pages/OrderConfirmation";
 import { AuthProvider } from "./contexts/AuthContext";
 import { CartProvider } from "./contexts/CartContext";
 
+
 function App() {
   return (
     <Router>
@@ -20,7 +21,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/products" element={<ProductList />} />
-            <Route path="/products/:productId" element={<ProductDetails />} />
+            <Route path="/products:/productId" element={<ProductDetails />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-confirmation" element={<OrderConfirmation />} />
