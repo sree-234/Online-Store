@@ -1,11 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import backgroundImage from '../images/back.jpg';  // Correct relative path
-import phone from '../images/phone.jpg';
-import lap from '../images/lap.jpg';
-import watch from '../images/watch.jpg';
-import head from '../images/head.jpg';
-import ear from '../images/ear.jpg';
+import phone from '../images/phone.jpg'; // Replace with actual image for smartphones
+import lap from '../images/lap.jpg'; // Replace with actual image for laptops
+import head from '../images/head.jpg'; // Replace with actual image for headphones
 
 export default function Home() {
   return (
@@ -19,8 +17,8 @@ export default function Home() {
         backgroundColor: '#ff4747',
         textAlign: 'center',
         width: '100vw',
-        backgroundImage: `url(${backgroundImage})`,
-        backgroundSize: 'cover',
+        backgroundImage: `url(${backgroundImage})`, // Reference background image
+        backgroundSize: 'cover', // Cover the whole area
         backgroundPosition: 'center',
       }}
     >
@@ -44,7 +42,7 @@ export default function Home() {
           fontSize: '10rem',
           margin: '10px 0',
           color: 'transparent', // Transparent fill like "Welcome to"
-          WebkitTextStroke: '5px purple', // Purple outline
+          WebkitTextStroke: '5px black', // White outline
           textTransform: 'uppercase',
           fontFamily: 'sans-serif', // Same bold font for consistency
         }}
@@ -62,105 +60,103 @@ export default function Home() {
           marginTop: '50px',
         }}
       >
-        {/* Button with Hover Effect */}
+        {/* Smartphones Button */}
         <Link
           to="/smartphones"
           style={{
             width: '250px',
             height: '250px',
-            backgroundImage: `url(${phone})`,
+            backgroundImage: `url(${phone})`, // Smartphone image
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             display: 'flex',
             justifyContent: 'center',
+            borderRadius: "50px",
             alignItems: 'center',
-            color: 'transparent',
+            color: 'transparent', // Transparent text
             WebkitTextStroke: '1px white', // White outline for the button text
             fontSize: '1.8rem',
-            fontFamily: 'sans-serif',
+            fontFamily: 'sans-serif', // Bold sans-serif for buttons
             textDecoration: 'none',
             letterSpacing: '1px',
             textTransform: 'uppercase',
-            transition: 'transform 0.3s ease, filter 0.3s ease', // Smooth hover effect
+            transition: 'transform 0.3s ease, background-color 0.3s ease', // Smooth transition effect
           }}
           onMouseEnter={(e) => {
-            e.target.style.WebkitTextStroke = '1px white'; // Change text outline on hover
-            e.target.style.filter = 'brightness(1.2)'; // Brighten background on hover
-            e.target.style.transform = 'scale(1.05)'; // Slightly scale up the button
+            e.target.style.transform = 'scale(1.1)'; // Scale button on hover
+            e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.6)'; // Optional background color change on hover
           }}
           onMouseLeave={(e) => {
-            e.target.style.WebkitTextStroke = '1px white'; // Revert text outline
-            e.target.style.filter = 'brightness(1)'; // Reset brightness
             e.target.style.transform = 'scale(1)'; // Reset scale
+            e.target.style.backgroundColor = ''; // Reset background color
           }}
         >
           Smartphones
         </Link>
 
+        {/* Laptops Button */}
         <Link
           to="/laptops"
           style={{
             width: '250px',
             height: '250px',
-            backgroundImage: `url(${lap})`,
+            backgroundImage: `url(${lap})`, // Laptop image
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             display: 'flex',
             justifyContent: 'center',
+            borderRadius: "50px",
             alignItems: 'center',
-            color: 'transparent',
+            color: 'transparent', // Transparent text
             WebkitTextStroke: '1px white', // White outline for the button text
             fontSize: '1.8rem',
             fontFamily: 'sans-serif',
             textDecoration: 'none',
             letterSpacing: '1px',
             textTransform: 'uppercase',
-            transition: 'transform 0.3s ease, filter 0.3s ease', // Smooth hover effect
+            transition: 'transform 0.3s ease, background-color 0.3s ease', // Smooth transition effect
           }}
           onMouseEnter={(e) => {
-            e.target.style.WebkitTextStroke = '1px white'; // Change text outline on hover
-            e.target.style.filter = 'brightness(1.2)'; // Brighten background on hover
-            e.target.style.transform = 'scale(1.05)'; // Slightly scale up the button
+            e.target.style.transform = 'scale(1.1)'; // Scale button on hover
+            e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.6)'; // Optional background color change on hover
           }}
           onMouseLeave={(e) => {
-            e.target.style.WebkitTextStroke = '1px white'; // Revert text outline
-            e.target.style.filter = 'brightness(1)'; // Reset brightness
             e.target.style.transform = 'scale(1)'; // Reset scale
+            e.target.style.backgroundColor = ''; // Reset background color
           }}
         >
           Laptops
         </Link>
 
-
+        {/* Headphones Button */}
         <Link
           to="/headphones"
           style={{
             width: '250px',
             height: '250px',
-            backgroundImage: `url(${head})`,
+            backgroundImage: `url(${head})`, // Headphones image
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            color: 'transparent',
+            borderRadius: "50px",
+            color: 'transparent', // Transparent text
             WebkitTextStroke: '1px white', // White outline for the button text
             fontSize: '1.8rem',
             fontFamily: 'sans-serif',
             textDecoration: 'none',
             letterSpacing: '1px',
             textTransform: 'uppercase',
-            transition: 'transform 0.3s ease, filter 0.3s ease', // Smooth hover effect
+            transition: 'transform 0.3s ease, background-color 0.3s ease', // Smooth transition effect
           }}
           onMouseEnter={(e) => {
-            e.target.style.WebkitTextStroke = '1px white'; // Change text outline on hover
-            e.target.style.filter = 'brightness(1.2)'; // Brighten background on hover
-            e.target.style.transform = 'scale(1.05)'; // Slightly scale up the button
+            e.target.style.transform = 'scale(1.1)'; // Scale button on hover
+            e.target.style.backgroundColor = 'rgba(0, 0, 0, 0.6)'; // Optional background color change on hover
           }}
           onMouseLeave={(e) => {
-            e.target.style.WebkitTextStroke = '1px white'; // Revert text outline
-            e.target.style.filter = 'brightness(1)'; // Reset brightness
             e.target.style.transform = 'scale(1)'; // Reset scale
+            e.target.style.backgroundColor = ''; // Reset background color
           }}
         >
           Headphones
