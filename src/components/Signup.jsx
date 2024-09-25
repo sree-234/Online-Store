@@ -1,24 +1,35 @@
-// src/components/Signup.jsx
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import Navbar from "../components/Navbar2"; 
 
 export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { signup } = useAuth();
   const navigate = useNavigate(); // Initialize useNavigate
+  
+  // State to manage error messages and loading
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setError(""); // Reset error before attempting signup
+    setLoading(true); // Show loading state
+  
     try {
       await signup(emailRef.current.value, passwordRef.current.value);
-      navigate("/profile"); // Redirect to profile page after successful signup
+      alert("Signup successful! Please log in.");
+      navigate("/login"); // Redirect to login page after successful signup
     } catch (error) {
       console.error(error);
-      // Optionally handle error feedback to user
+      setError("Failed to sign up. The email may already be registered."); // Set error message
     }
+  
+    setLoading(false); // Stop loading state
   }
+  
 
   const containerStyle = {
     height: "100vh", // Full height of the viewport
@@ -81,9 +92,15 @@ export default function Signup() {
   };
 
   return (
+    <div>
+      <Navbar />
     <div style={containerStyle}>
       <form onSubmit={handleSubmit} style={formStyle}>
         <h2 style={headingStyle}>Sign Up</h2>
+
+        {/* Display error message if signup fails */}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        
         <input
           type="email"
           ref={emailRef}
@@ -101,10 +118,11 @@ export default function Signup() {
         <button
           type="submit"
           style={buttonStyle}
+          disabled={loading} // Disable button when loading
           onMouseOver={(e) => (e.currentTarget.style.transform = buttonHoverStyle.transform)}
           onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
         >
-          SIGN UP
+          {loading ? "Signing up..." : "SIGN UP"} {/* Show loading state */}
         </button>
         <p style={{ textAlign: "center", color: "white" }}>
           Already a user?{" "}
@@ -113,6 +131,7 @@ export default function Signup() {
           </Link>
         </p>
       </form>
+    </div>
     </div>
   );
 }

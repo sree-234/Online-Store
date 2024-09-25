@@ -55,14 +55,6 @@ export default function Navbar() {
           Online Store
         </Link>
       </h1>
-      <div>
-        {["cart"].map((item) => (
-          <Link to={`/${item}`} key={item} style={linkHoverStyle}>
-            {item.charAt(0).toUpperCase() + item.slice(1)}
-            <span style={hoverEffect}></span>
-          </Link>
-        ))}
-      </div>
     </nav>
   );
 }

@@ -4,9 +4,12 @@ import backgroundImage from '../images/back.jpg';  // Correct relative path
 import phone from '../images/phone.jpg'; // Replace with actual image for smartphones
 import lap from '../images/lap.jpg'; // Replace with actual image for laptops
 import head from '../images/head.jpg'; // Replace with actual image for headphones
+import Navbar from "../components/Navbar";
 
 export default function Home() {
   return (
+    <div>
+      <Navbar />
     <div
       style={{
         display: 'flex',
@@ -162,6 +165,7 @@ export default function Home() {
           Headphones
         </Link>
       </div>
+    </div>
     </div>
   );
 }

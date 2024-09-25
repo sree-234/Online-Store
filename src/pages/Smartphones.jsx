@@ -5,6 +5,7 @@ import backgroundImage from "../images/back.jpg";
 import phone1 from "../images/phone1.jpg";
 import phone2 from "../images/phone2.jpg";
 import phone3 from "../images/phone3.jpg";
+import Navbar from "../components/Navbar";
 
 export default function Smartphones() {
   const { addToCart } = useCart(); // Use addToCart from context
@@ -22,6 +23,8 @@ export default function Smartphones() {
   };
 
   return (
+    <div>
+      <Navbar />
     <div
       style={{
         display: "flex",
@@ -123,6 +126,7 @@ export default function Smartphones() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

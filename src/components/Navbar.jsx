@@ -1,26 +1,27 @@
-// src/components/Navbar.jsx
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
+import { useNavigate } from "react-router-dom"; 
 
 export default function Navbar() {
   const { currentUser, logout } = useAuth();
+  const navigate = useNavigate();
 
   const navStyle = {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    padding: "0.5rem 1.5rem", // Increased padding for better spacing
-    backgroundColor: "#333", // A slightly lighter background for better contrast
+    padding: "0.5rem 1.5rem", 
+    backgroundColor: "#333",
     color: "white",
     position: "fixed",
     left: 0,
     top: 0,
-    width: "98vw", // Ensure full width of the viewport
-    height: "40px", // Fixed height for consistency
+    width: "98vw",
+    height: "40px",
     zIndex: 1000,
-    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)", // More pronounced shadow
-    borderRadius: "0 0 10px 10px", // Rounded bottom corners
+    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
+    borderRadius: "0 0 10px 10px", 
   };
 
   const linkStyle = {
@@ -30,7 +31,7 @@ export default function Navbar() {
     fontSize: "18px",
     fontWeight: "bold",
     position: "relative",
-    padding: "0.5rem 0", // Padding for better click area
+    padding: "0.5rem 0",
   };
 
   const hoverEffect = {
@@ -39,8 +40,8 @@ export default function Navbar() {
     right: "0",
     bottom: "0",
     height: "3px",
-    backgroundColor: "#ff884d", // Accent color for the hover effect
-    transform: "scaleX(0)", // Initially hidden
+    backgroundColor: "#ff884d", 
+    transform: "scaleX(0)", 
     transition: "transform 0.3s ease-in-out",
   };
 
@@ -48,6 +49,7 @@ export default function Navbar() {
     try {
       await logout();
       // Optionally redirect to login or homepage after logout
+      navigate("/");
     } catch (error) {
       console.error("Failed to log out:", error);
     }
@@ -65,6 +67,9 @@ export default function Navbar() {
           <>
             <Link to="/profile" style={linkStyle}>
               Profile
+            </Link>
+            <Link to="/cart" style={linkStyle}>
+              Cart
             </Link>
             <button onClick={handleLogout} style={{ ...linkStyle, background: "none", border: "none", cursor: "pointer" }}>
               Sign Out
