@@ -5,6 +5,7 @@ import backgroundImage from "../images/back.jpg";
 import laptop1 from "../images/laptop1.jpg";
 import laptop2 from "../images/laptop2.jpg";
 import laptop3 from "../images/laptop3.jpg";
+import Navbar from "../components/Navbar";
 
 export default function Laptops() {
   const { addToCart } = useCart(); // Use addToCart from context
@@ -22,6 +23,8 @@ export default function Laptops() {
   };
 
   return (
+    <div>
+      <Navbar />
     <div
       style={{
         display: "flex",
@@ -111,6 +114,7 @@ export default function Laptops() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }

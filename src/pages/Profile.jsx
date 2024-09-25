@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { doc, updateDoc } from "firebase/firestore";
 import { db } from "../firebaseConfig";
-import Navbar from "../components/Navbar2"; 
+import Navbar from "../components/Navbar"; 
 
 export default function Profile() {
   const { currentUser } = useAuth();

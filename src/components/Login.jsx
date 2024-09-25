@@ -1,32 +1,45 @@
-// src/components/Login.jsx
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useNavigate, useLocation } from "react-router-dom"; // Import useLocation for previous page
 
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
   const navigate = useNavigate(); // Initialize useNavigate
+  const location = useLocation(); // Get location to capture the previous URL
+
+  // State to handle error messages
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // Get the path the user came from, or default to "/cart"
+  const from = location.state?.from?.pathname || "/cart"; 
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setError(""); // Reset error before attempting login
+    setLoading(true); // Set loading state
+
     try {
       await login(emailRef.current.value, passwordRef.current.value);
-      navigate("/cart"); // Redirect to cart after successful login
+      setLoading(false); // Stop loading
+      alert("Login successful!");
+      navigate(from); // Redirect to the previous page after successful login
     } catch (error) {
       console.error(error);
-      // Optionally handle error feedback to user
+      setError("Failed to log in. Please check your credentials."); // Set error message
+      setLoading(false); // Stop loading
     }
   }
 
   // Inline Styles
   const containerStyle = {
-    height: "100vh", // Full height of the viewport
-    width: "100vw",  // Full width of the viewport
+    height: "100vh",
+    width: "100vw",
     display: "flex",
-    justifyContent: "center", // Centers content horizontally
-    alignItems: "center", // Centers content vertically
+    justifyContent: "center",
+    alignItems: "center",
     background: "url('https://imgs.search.brave.com/YdTrZl8rNTnykCTr5LoXLkc2k-3zxbfmb7NIjPRU4dI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA4LzI4LzE4LzQ0/LzM2MF9GXzgyODE4/NDQ5Ml9yNGYxb29C/Vm5MOE1wSjBUSUVw/bHB0Y3dVVmxaaXJ0/Uy5qcGc')",
     backgroundSize: "cover",
   };
@@ -39,7 +52,7 @@ export default function Login() {
     background: "rgba(0, 0, 0, 0.607)",
     backdropFilter: "blur(3px)",
     borderRadius: "1rem",
-    textAlign: "center", // to center the form content
+    textAlign: "center",
   };
 
   const headingStyle = {
@@ -48,7 +61,7 @@ export default function Login() {
     letterSpacing: "5px",
     fontSize: "45px",
     fontWeight: "bold",
-    color: "white", // Set heading color to white
+    color: "white",
   };
 
   const inputStyle = {
@@ -58,8 +71,8 @@ export default function Login() {
     width: "300px",
     marginTop: ".2rem",
     borderBottom: "1px solid white",
-    textAlign: "center", // centers the text in input
-    color: "white", // Set input text color to white
+    textAlign: "center",
+    color: "white",
   };
 
   const buttonStyle = {
@@ -85,6 +98,10 @@ export default function Login() {
     <div style={containerStyle}>
       <form onSubmit={handleSubmit} style={formStyle}>
         <h2 style={headingStyle}>Login</h2>
+        
+        {/* Display error message if login fails */}
+        {error && <p style={{ color: "red" }}>{error}</p>}
+        
         <input
           type="email"
           ref={emailRef}
@@ -102,10 +119,11 @@ export default function Login() {
         <button
           type="submit"
           style={buttonStyle}
+          disabled={loading} // Disable button when loading
           onMouseOver={(e) => (e.currentTarget.style.transform = buttonHoverStyle.transform)}
           onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
         >
-          LOGIN
+          {loading ? "Logging in..." : "LOGIN"} {/* Show loading state */}
         </button>
         <p style={{ textAlign: "center", color: "white" }}>
           Don't have an account?{" "}

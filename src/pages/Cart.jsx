@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate for naviga
 import { useCart } from "../contexts/CartContext"; // Import CartContext
 import backgroundImage from "../images/back.jpg"; // Ensure the same background
 import CheckoutButton from "../components/CheckoutButton";
+import Navbar from "../components/Navbar";
 
 export default function Cart() {
   const { cart, updateCartQuantity } = useCart(); // Use updateCartQuantity for quantity management
@@ -12,6 +13,8 @@ export default function Cart() {
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
   return (
+    <div>
+      <Navbar />
     <div
       style={{
         display: "flex",
@@ -119,11 +122,10 @@ export default function Cart() {
             </div>
           ))}
   {/* Total Price */}
-          <h2 style={{ color: "green", textAlign: "right" }}>Total: {total} INR</h2>
 
           {/* Return to Shopping Button */}
         
-          <h2 style={{ color: "#000" }}>Total: ${total} USD</h2> {/* Ensure text color is black */}
+          <h2 style={{ color: "green" }}>Total: INR {total} </h2> {/* Ensure text color is black */}
           <CheckoutButton />
            <p>   
           <button
@@ -145,6 +147,7 @@ export default function Cart() {
           </p>
         </div>
       )}
+    </div>
     </div>
   );
 }

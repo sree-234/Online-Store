@@ -5,6 +5,7 @@ import backgroundImage from "../images/back.jpg";
 import headphones1 from "../images/headphone1.jpg";
 import headphones2 from "../images/headphone2.jpg";
 import headphones3 from "../images/headphone3.jpg";
+import Navbar from "../components/Navbar";
 
 export default function Headphones() {
   const { addToCart } = useCart(); // Use addToCart from context
@@ -22,6 +23,8 @@ export default function Headphones() {
   };
 
   return (
+    <div>
+      <Navbar />
     <div
       style={{
         display: "flex",
@@ -111,6 +114,7 @@ export default function Headphones() {
           </div>
         ))}
       </div>
+    </div>
     </div>
   );
 }
