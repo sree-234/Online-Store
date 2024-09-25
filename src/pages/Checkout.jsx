@@ -25,15 +25,15 @@ export default function Checkout() {
   // Styles
   const containerStyle = {
     padding: "2rem",
-    maxWidth: "600px", // Set a max width for the container
-    width: "100%", // Full width of the container
+    maxWidth: "600px",
+    width: "100%",
     backgroundColor: "#f8f8f8",
     borderRadius: "8px",
     boxShadow: "0 4px 10px rgba(0, 0, 0, 0.1)",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    margin: "auto",
+    margin: "0 auto", // Ensures centering on all screen sizes
     position: "relative",
   };
 
@@ -42,7 +42,8 @@ export default function Checkout() {
     flexDirection: "column",
     justifyContent: "center", // Center vertically
     alignItems: "center", // Center horizontally
-    height: "100vh", // Full height of the viewport
+    height: "100vh",
+    width: "100vw", // Full height of the viewport
   };
 
   const titleStyle = {

@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { Link, useNavigate, useLocation } from "react-router-dom"; // Import useLocation for previous page
+import Navbar from "../components/Navbar2"; 
 
 export default function Login() {
   const emailRef = useRef();
@@ -95,6 +96,8 @@ export default function Login() {
   };
 
   return (
+    <div>
+      <Navbar />
     <div style={containerStyle}>
       <form onSubmit={handleSubmit} style={formStyle}>
         <h2 style={headingStyle}>Login</h2>
@@ -133,5 +136,6 @@ export default function Login() {
         </p>
       </form>
     </div>
+  </div>
   );
 }
