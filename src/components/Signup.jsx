@@ -7,52 +7,58 @@ export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { signup } = useAuth();
-  const navigate = useNavigate(); 
-  
-  // State to manage error messages and loading
-  const [error, setError] = useState("");
+  const navigate = useNavigate();
+
   const [loading, setLoading] = useState(false);
 
-  // Password validation function
   function validatePassword(password) {
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,12}$/;
     if (!password.match(passwordRegex)) {
-      return alert("Password must contain letters, digits, special symbols, and be 8-12 characters long.");
+      return "Password must contain letters, digits, special symbols, and be 8-12 characters long.";
     }
     return null;
   }
 
-  // Handle submit event with password validation
   async function handleSubmit(e) {
     e.preventDefault();
-    setError(""); // Reset error before attempting signup
-    setLoading(true); // Show loading state
+    setLoading(true);
 
     const passwordError = validatePassword(passwordRef.current.value);
     if (passwordError) {
-      alert(passwordError); // Show alert with the validation error
-      setLoading(false); // Stop loading state
-      return; // Prevent signup if validation fails
+      alert(passwordError);
+      setLoading(false);
+      return;
     }
 
     try {
-      await signup(emailRef.current.value, passwordRef.current.value); // Proceed to signup
+      await signup(emailRef.current.value, passwordRef.current.value);
       alert("Signup successful! Please log in.");
       navigate("/login"); // Redirect to login page after successful signup
     } catch (error) {
-      console.error(error);
-      alert("Failed to sign up. The email may already be registered."); // Show error message
-    }
+      // Handle Firebase errors more specifically
+      console.error(error); // Log the actual error for debugging
 
-    setLoading(false); // Stop loading state
+      if (error.code === "auth/email-already-in-use") {
+        alert("This email is already registered. Please try logging in.");
+      } else if (error.code === "auth/invalid-email") {
+        alert("The email address is not valid.");
+      } else if (error.code === "auth/weak-password") {
+        alert("The password is too weak. It should be at least 6 characters.");
+      } else {
+        alert("Failed to sign up. Please try again later.");
+      }
+    } finally {
+      setLoading(false); // Stop loading state after signup or failure
+    }
   }
 
+  // Styles remain the same as before
   const containerStyle = {
-    height: "100vh", // Full height of the viewport
-    width: "100vw",  // Full width of the viewport
+    height: "100vh",
+    width: "100vw",
     display: "flex",
-    justifyContent: "center", // Centers content horizontally
-    alignItems: "center", // Centers content vertically
+    justifyContent: "center",
+    alignItems: "center",
     background: "url('https://imgs.search.brave.com/YdTrZl8rNTnykCTr5LoXLkc2k-3zxbfmb7NIjPRU4dI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA4LzI4LzE4LzQ0/LzM2MF9GXzgyODE4/NDQ5Ml9yNGYxb29C/Vm5MOE1wSjBUSUVw/bHB0Y3dVVmxaaXJ0/Uy5qcGc')",
     backgroundSize: "cover",
   };
@@ -65,7 +71,7 @@ export default function Signup() {
     background: "rgba(0, 0, 0, 0.607)",
     backdropFilter: "blur(3px)",
     borderRadius: "1rem",
-    textAlign: "center", // to center the form content
+    textAlign: "center",
   };
 
   const headingStyle = {
@@ -74,7 +80,7 @@ export default function Signup() {
     letterSpacing: "5px",
     fontSize: "45px",
     fontWeight: "bold",
-    color: "white", // Set heading color to white
+    color: "white",
   };
 
   const inputStyle = {
@@ -84,8 +90,8 @@ export default function Signup() {
     width: "300px",
     marginTop: ".2rem",
     borderBottom: "1px solid white",
-    textAlign: "center", // centers the text in input
-    color: "white", // Set input text color to white
+    textAlign: "center",
+    color: "white",
   };
 
   const buttonStyle = {
@@ -113,9 +119,6 @@ export default function Signup() {
       <div style={containerStyle}>
         <form onSubmit={handleSubmit} style={formStyle}>
           <h2 style={headingStyle}>Sign Up</h2>
-
-          {/* Display error message if signup fails */}
-          {error && <p style={{ color: "red" }}>{error}</p>}
           
           <input
             type="email"
@@ -124,6 +127,7 @@ export default function Signup() {
             required
             style={inputStyle}
           />
+
           <input
             type="password"
             ref={passwordRef}
@@ -131,15 +135,17 @@ export default function Signup() {
             required
             style={inputStyle}
           />
+
           <button
             type="submit"
             style={buttonStyle}
-            disabled={loading} // Disable button when loading
+            disabled={loading}
             onMouseOver={(e) => (e.currentTarget.style.transform = buttonHoverStyle.transform)}
             onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
           >
-            {loading ? "Signing up..." : "SIGN UP"} {/* Show loading state */}
+            {loading ? "Signing up..." : "SIGN UP"}
           </button>
+
           <p style={{ textAlign: "center", color: "white" }}>
             Already a user?{" "}
             <Link to="/login" style={{ color: "#ff884d", textDecoration: "underline" }}>

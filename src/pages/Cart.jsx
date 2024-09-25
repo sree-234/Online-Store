@@ -13,6 +13,13 @@ export default function Cart() {
   const { currentUser } = useAuth(); // Get logged-in user
   const navigate = useNavigate();
 
+  // Redirect to login if no user is logged in
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/login"); // Redirect to login page if user is not authenticated
+    }
+  }, [currentUser, navigate]);
+
   // Calculate total price based on product quantity
   const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
