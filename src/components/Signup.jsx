@@ -1,35 +1,51 @@
 import React, { useRef, useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
-import Navbar from "../components/Navbar2"; 
+import { Link, useNavigate } from "react-router-dom";
+import Navbar from "../components/Navbar2";
 
 export default function Signup() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { signup } = useAuth();
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate(); 
   
   // State to manage error messages and loading
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
+  // Password validation function
+  function validatePassword(password) {
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,12}$/;
+    if (!password.match(passwordRegex)) {
+      return alert("Password must contain letters, digits, special symbols, and be 8-12 characters long.");
+    }
+    return null;
+  }
+
+  // Handle submit event with password validation
   async function handleSubmit(e) {
     e.preventDefault();
     setError(""); // Reset error before attempting signup
     setLoading(true); // Show loading state
-  
+
+    const passwordError = validatePassword(passwordRef.current.value);
+    if (passwordError) {
+      alert(passwordError); // Show alert with the validation error
+      setLoading(false); // Stop loading state
+      return; // Prevent signup if validation fails
+    }
+
     try {
-      await signup(emailRef.current.value, passwordRef.current.value);
+      await signup(emailRef.current.value, passwordRef.current.value); // Proceed to signup
       alert("Signup successful! Please log in.");
       navigate("/login"); // Redirect to login page after successful signup
     } catch (error) {
       console.error(error);
-      setError("Failed to sign up. The email may already be registered."); // Set error message
+      alert("Failed to sign up. The email may already be registered."); // Show error message
     }
-  
+
     setLoading(false); // Stop loading state
   }
-  
 
   const containerStyle = {
     height: "100vh", // Full height of the viewport
@@ -94,44 +110,44 @@ export default function Signup() {
   return (
     <div>
       <Navbar />
-    <div style={containerStyle}>
-      <form onSubmit={handleSubmit} style={formStyle}>
-        <h2 style={headingStyle}>Sign Up</h2>
+      <div style={containerStyle}>
+        <form onSubmit={handleSubmit} style={formStyle}>
+          <h2 style={headingStyle}>Sign Up</h2>
 
-        {/* Display error message if signup fails */}
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        
-        <input
-          type="email"
-          ref={emailRef}
-          placeholder="Email"
-          required
-          style={inputStyle}
-        />
-        <input
-          type="password"
-          ref={passwordRef}
-          placeholder="Password"
-          required
-          style={inputStyle}
-        />
-        <button
-          type="submit"
-          style={buttonStyle}
-          disabled={loading} // Disable button when loading
-          onMouseOver={(e) => (e.currentTarget.style.transform = buttonHoverStyle.transform)}
-          onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
-        >
-          {loading ? "Signing up..." : "SIGN UP"} {/* Show loading state */}
-        </button>
-        <p style={{ textAlign: "center", color: "white" }}>
-          Already a user?{" "}
-          <Link to="/login" style={{ color: "#ff884d", textDecoration: "underline" }}>
-            Log In
-          </Link>
-        </p>
-      </form>
-    </div>
+          {/* Display error message if signup fails */}
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          
+          <input
+            type="email"
+            ref={emailRef}
+            placeholder="Email"
+            required
+            style={inputStyle}
+          />
+          <input
+            type="password"
+            ref={passwordRef}
+            placeholder="Password"
+            required
+            style={inputStyle}
+          />
+          <button
+            type="submit"
+            style={buttonStyle}
+            disabled={loading} // Disable button when loading
+            onMouseOver={(e) => (e.currentTarget.style.transform = buttonHoverStyle.transform)}
+            onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          >
+            {loading ? "Signing up..." : "SIGN UP"} {/* Show loading state */}
+          </button>
+          <p style={{ textAlign: "center", color: "white" }}>
+            Already a user?{" "}
+            <Link to="/login" style={{ color: "#ff884d", textDecoration: "underline" }}>
+              Log In
+            </Link>
+          </p>
+        </form>
+      </div>
     </div>
   );
 }
