@@ -108,11 +108,11 @@ export default function Checkout() {
               {cart.map((item, index) => (
                 <li key={index} style={itemStyle}>
                   <span><strong>Product Name:</strong> {item.name}</span>
-                  <span><strong>Price:</strong> {item.price} USD</span>
+                  <span><strong>Price:</strong> {item.price} INR</span>
                 </li>
               ))}
             </ul>
-            <div style={totalStyle}>Total Amount: {totalAmount} USD</div>
+            <div style={totalStyle}>Total Amount: {totalAmount} INR</div>
             <button
               style={buttonStyle}
               onClick={handlePayment}
