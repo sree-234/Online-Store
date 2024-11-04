@@ -1,21 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import { useCart } from "../contexts/CartContext"; // Import CartContext
-import backgroundImage from "../images/back.jpg";
-import headphones1 from "../images/headphone1.jpg";
-import headphones2 from "../images/headphone2.jpg";
-import headphones3 from "../images/headphone3.jpg";
-import Navbar from "../components/Navbar";
 
 export default function Headphones() {
   const { addToCart } = useCart(); // Use addToCart from context
   const navigate = useNavigate(); // For navigating to the cart page
-
-  const products = [
-    { id: 7, name: "Headphones 1", price: 299, img: headphones1, specs: "Wireless, Noise Cancelling, Over-Ear" },
-    { id: 8, name: "Headphones 2", price: 399, img: headphones2, specs: "Bluetooth, 20 hours battery" },
-    { id: 9, name: "Headphones 3", price: 199, img: headphones3, specs: "Wired, Hi-Fi, Over-Ear" },
-  ];
 
   const handleAddToCart = (product) => {
     addToCart(product); // Add the product to the cart

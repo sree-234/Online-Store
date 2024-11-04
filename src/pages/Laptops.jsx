@@ -1,21 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import { useCart } from "../contexts/CartContext"; // Import CartContext
-import backgroundImage from "../images/back.jpg";
-import laptop1 from "../images/laptop1.jpg";
-import laptop2 from "../images/laptop2.jpg";
-import laptop3 from "../images/laptop3.jpg";
-import Navbar from "../components/Navbar";
+
 
 export default function Laptops() {
   const { addToCart } = useCart(); // Use addToCart from context
   const navigate = useNavigate(); // For navigating to the cart page
 
-  const products = [
-    { id: 4, name: "Laptop 1", price: 1499, img: laptop1, specs: "8GB RAM, 512GB SSD, Intel i7" },
-    { id: 5, name: "Laptop 2", price: 1799, img: laptop2, specs: "16GB RAM, 1TB SSD, Intel i9" },
-    { id: 6, name: "Laptop 3", price: 1299, img: laptop3, specs: "8GB RAM, 256GB SSD, AMD Ryzen 7" },
-  ];
+  
 
   const handleAddToCart = (product) => {
     addToCart(product); // Add the product to the cart

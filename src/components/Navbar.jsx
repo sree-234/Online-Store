@@ -9,10 +9,10 @@ export default function Navbar() {
 
   const navStyle = {
     display: "flex",
-    justifyContent: "space-between",
+    justifyContent: "flex-end",
     alignItems: "center",
-    padding: "0.5rem 1.5rem", 
-    backgroundColor: "#333",
+    padding: "0.5rem 1.5rem",
+    backgroundColor: "black", // Black navbar background
     color: "white",
     position: "fixed",
     left: 0,
@@ -20,35 +20,30 @@ export default function Navbar() {
     width: "98vw",
     height: "40px",
     zIndex: 1000,
-    boxShadow: "0 2px 10px rgba(0, 0, 0, 0.3)",
-    borderRadius: "0 0 10px 10px", 
   };
 
   const linkStyle = {
     margin: "0 1.5rem",
-    color: "white",
+    color: "#f72323", // White text color
+    //backgroundColor: "#", // Background color for buttons
+    padding: "0.5rem 1rem",
     textDecoration: "none",
     fontSize: "18px",
+    fontFamily: 'Helvetica, Arial, sans-serif',
     fontWeight: "bold",
-    position: "relative",
-    padding: "0.5rem 0",
+    borderRadius: "5px", // Optional small radius for buttons
+    transition: "background-color 0.3s ease",
   };
 
-  const hoverEffect = {
-    position: "absolute",
-    left: "0",
-    right: "0",
-    bottom: "0",
-    height: "3px",
-    backgroundColor: "#ff884d", 
-    transform: "scaleX(0)", 
-    transition: "transform 0.3s ease-in-out",
+  const buttonStyle = {
+    ...linkStyle,
+    border: "none",
+    cursor: "pointer",
   };
 
   const handleLogout = async () => {
     try {
       await logout();
-      // Optionally redirect to login or homepage after logout
       navigate("/");
     } catch (error) {
       console.error("Failed to log out:", error);
@@ -57,11 +52,6 @@ export default function Navbar() {
 
   return (
     <nav style={navStyle}>
-      <h1>
-        <Link to="/" style={{ ...linkStyle, fontSize: "24px" }}>
-          Online Store
-        </Link>
-      </h1>
       <div>
         {currentUser ? (
           <>
@@ -71,17 +61,17 @@ export default function Navbar() {
             <Link to="/cart" style={linkStyle}>
               Cart
             </Link>
-            <button onClick={handleLogout} style={{ ...linkStyle, background: "none", border: "none", cursor: "pointer" }}>
+            <button onClick={handleLogout} style={buttonStyle}>
               Sign Out
             </button>
           </>
         ) : (
           <>
             <Link to="/login" style={linkStyle}>
-              Login
+              LOGIN
             </Link>
             <Link to="/cart" style={linkStyle}>
-              Cart
+              CART
             </Link>
           </>
         )}

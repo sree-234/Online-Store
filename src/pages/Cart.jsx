@@ -4,7 +4,6 @@ import { useCart } from "../contexts/CartContext";
 import { db } from "../firebaseConfig"; // Import Firestore
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useAuth } from "../contexts/AuthContext"; // To get current user
-import backgroundImage from "../images/back.jpg";
 import CheckoutButton from "../components/CheckoutButton";
 import Navbar from "../components/Navbar";
 

@@ -1,22 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import { useCart } from "../contexts/CartContext"; // Import CartContext
-import backgroundImage from "../images/back.jpg";
-import phone1 from "../images/phone1.jpg";
-import phone2 from "../images/phone2.jpg";
-import phone3 from "../images/phone3.jpg";
-import Navbar from "../components/Navbar";
+
 
 export default function Smartphones() {
   const { addToCart } = useCart(); // Use addToCart from context
   const navigate = useNavigate(); // For navigating to the cart page
 
-  const products = [
-    { id: 1, name: "Phone 1", price: 799, img: phone1, specs: "64GB, 5G, 12MP Camera" },
-    { id: 2, name: "Phone 2", price: 899, img: phone2, specs: "128GB, 5G, 48MP Camera" },
-    { id: 3, name: "Phone 3", price: 999, img: phone3, specs: "256GB, 5G, 108MP Camera" },
-  ];
-
+  
   const handleAddToCart = (product) => {
     addToCart(product); // Add the product to the cart
     navigate("/cart"); // Navigate to the cart page
