@@ -1,0 +1,473 @@
+/* Light mode styles */
+.light-mode {
+    background-color: #f0f0f3;
+    color: black;
+    --div-background: #f0f0f3;
+    --highlight-color: rgba(255, 255, 255, 0.7);
+    transition: background-color 0.5s ease, color 0.5s ease;
+  
+    /* Neumorphic effect for light mode */
+    .desc-div-i,
+    .desc-div-f,
+    .desc-div-f-reverse,
+    .tab-button.active {
+      box-shadow: inset 10px 10px 20px rgba(0, 0, 0, 0.15),
+        inset -10px -10px 20px var(--highlight-color);
+    }
+  }
+  
+  /* Dark mode styles */
+  .dark-mode {
+    background-color: #3b3b3b;
+    color: white;
+    --div-background: #3b3b3b;
+    --highlight-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.5s ease, color 0.5s ease;
+  
+    /* Neumorphic effect for dark mode */
+    .desc-div-i,
+    .desc-div-f,
+    .desc-div-f-reverse,
+    .tab-button.active {
+      box-shadow: inset 10px 10px 20px rgba(0, 0, 0, 0.15),
+        inset -10px -10px 20px var(--highlight-color);
+    }
+  }
+
+  
+  /* Style for the body to make it full height and center everything */
+  .desc-body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--div-background, #fff);
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+  
+  
+  .desc-div-i {
+    width: 300px;
+    height: 300px;
+    background-color: var(--div-background, #fff);
+    border-radius: 15px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    transition: height 0.5s ease, width 0.5s ease, transform 0.5s ease,
+      background-color 0.5s ease;
+      overflow: hidden;
+  }
+  
+/* Expanded state for desc-div */
+.desc-div-f {
+    width: 80vw;
+    height: 80vh;
+    transition: height 0.5s ease, width 0.5s ease;
+    overflow: hidden;
+  }
+  
+  
+/* Container for thumbnails */
+.thumbnail-container {
+    position: absolute;
+    bottom: 10px; /* Adjust positioning as needed */
+    left: 5%;
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    width: 90%; /* Adjust width to fit your design */
+    overflow-x: auto; /* Enable horizontal scrolling if needed */
+    padding: 5px 0;
+  }
+  
+  /* Thumbnail styles */
+  .thumbnail {
+    width: 50px; /* Adjust size as needed */
+    height: 50px; /* Adjust size as needed */
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px var(--highlight-color);
+    overflow: hidden;
+  }
+  
+  .thumbnail img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure images cover the thumbnail area */
+  }
+  
+  .selected-thumbnail {
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1), inset -5px -5px 10px var(--highlight-color); /* Slight zoom effect on hover */
+  }
+  
+/* Initial state - slide in from the top */
+.home-button-back-i {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--text-color);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px 20px;
+    margin: 20px;
+    border-radius: 8px;
+    position: absolute;
+    left: 20px;
+    top: 40%;
+    opacity: 0; /* Start hidden */
+    transform: translateY(-10%); /* Initial position for slide in */
+    transition: color 0.3s ease, background-color 0.3s ease;
+    animation: slideInFromTop 0.5s forwards; /* Slide in animation */
+    animation-delay: 0.7s; /* Adjust delay if needed */
+  }
+  
+  /* Final state - slide out to the top */
+  .home-button-back-f {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: var(--text-color);
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px 20px;
+    margin: 20px;
+    border-radius: 8px;
+    position: absolute;
+    left: 20px;
+    top: 40%;
+    opacity: 1; /* Start visible */
+    transform: translateY(0); /* Starting position for slide out */
+    transition: color 0.3s ease, background-color 0.3s ease;
+    animation: slideOutFromTop 0.5s forwards; /* Slide out animation */
+    animation-delay: 0.9s; /* Adjust delay for consistency */
+  }
+  
+  
+  
+  /* Updated Image Div Styles to Fit with Thumbnails */
+  .image-div-i, .image-div-f {
+    position: absolute;
+    left: 2%;
+    border-radius: 15px;
+    height: 92%; /* Adjusted to make space for thumbnails */
+    width: 40%;
+    background-color: var(--div-background, #fff);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15), -10px -10px 20px var(--highlight-color);
+    overflow: hidden;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .image-div-i {
+    opacity: 0;
+    animation: slideInFromLeft 0.5s ease forwards;
+    animation-delay: 0.5s;
+  }
+  
+  .image-div-f {
+    opacity: 1;
+    animation: slideOutFromLeft 0.5s ease forwards;
+    animation-delay: 1.2s;
+  }
+
+/* Styles for the maroon box and headings */
+/* Styles for the maroon box and headings */
+.maroon-box {
+    position: absolute;
+    top: 5%; /* Adjust this value to control the distance from the top */
+    right: 9%; /* Adjust to ensure it's aligned properly on the right side */
+    width: 40%; /* Adjust width to fit within the right half */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: flex-start; /* Align items at the top */
+    color: white;
+    text-align: center; /* Center text */
+    margin: 0;
+    transform: translateY(0); /* Remove any vertical translation */
+  }
+  
+  
+  
+  .name-heading-i {
+    font-size: 3.5rem; /* Initial font size */
+    font-weight: 400;
+    background: linear-gradient(to right, #8a2be2, #dda0dd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    opacity: 0;
+    animation: slideInFromTop 0.7s forwards;
+    animation-delay: 0.7s;
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow if necessary */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  }
+  
+  
+  .price-heading-i{
+    font-size: 2.8rem; /* Smaller font size for the price */
+    font-weight: bold;
+    background: linear-gradient(to right, #8a2be2, #dda0dd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 10px 0 0 0; /* Add some margin to separate from the name */
+    opacity: 0;
+    animation: slideInFromTop 0.7s forwards;
+    animation-delay: 0.9s;
+    white-space: nowrap; /* Prevent text wrapping */
+    overflow: hidden; /* Hide overflow if necessary */
+    text-overflow: ellipsis; /* Add ellipsis if text overflows */
+  }
+  
+
+
+.tab-div {
+    position:relative;
+    background-color: var(--div-background, #fff);
+    border-radius: 15px;
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15),
+                -10px -10px 20px var(--highlight-color);
+    padding: 20px;
+    margin-top: 160px;
+    margin-left: 630px;
+    transform: translateX(100%); /* Start off-screen to the right */
+    opacity: 0;
+    animation: slideInFromRight 0.5s forwards; /* Slide in animation */
+    animation-delay: 1.2s; /* Delay for initial slide-in effect */
+    width: 45%;
+    height: 67%;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Tabs container */
+.tab-switches {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    margin-bottom: 10px;
+    position: relative;
+    opacity: 0;
+    animation: slideInFromTop 0.5s forwards; /* Fade in animation */
+    animation-delay: 1.4s; /* Delay for tab buttons */
+}
+
+/* Tab button styles */
+.tab-button {
+    background-color: transparent;
+    border: none;
+    border-radius: 15px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    padding: 20px 40px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    outline: none;
+    opacity: 0;
+    color: var(--text-color);
+    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15),
+                -10px -10px 20px var(--highlight-color);
+    animation: slideInFromTop 0.5s forwards; /* Fade in animation */
+    animation-delay: 1.4s;
+    
+}
+
+/* Active tab button */
+.tab-button.active {
+    color: #8a2be2;
+    font-weight: 400;
+}
+
+/* Tab display area */
+.tab-text {
+    font-size: large;
+    text-align: left;
+    color: var(--text-color);
+    overflow-y: auto;
+    max-height: calc(100% - 40px);
+    line-height: 1.6;
+    padding: 10px;
+    opacity: 0;
+    animation: slideInFromBottom 0.5s forwards; /* Fade in animation for content */
+    animation-delay: 1.8s; /* Delay for content to appear last */
+}
+
+/* -f classes for slide-out animations */
+.name-heading-f {
+    font-size: 3.5rem;
+    font-weight: 400;
+    background: linear-gradient(to right, #8a2be2, #dda0dd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 0;
+    transform: translateY(0);
+    opacity: 1;
+    animation: slideOutFromTop 0.5s forwards;
+    animation-delay: 1.0s; /* Adjust delay as needed */
+}
+
+.price-heading-f {
+    font-size: 2.8rem; /* Smaller font size for the price */
+    font-weight: bold;
+    background: linear-gradient(to right, #8a2be2, #dda0dd);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 10px 0 0 0;
+    transform: translateY(0);
+    opacity: 1;
+    animation: slideOutFromTop 0.5s forwards;
+    animation-delay: 0.8s; /* Adjust delay as needed */
+}
+
+.tab-div-f {
+    transform: translateX(0%);
+    opacity: 1;
+    animation: slideOutFromRight 0.5s forwards;
+    animation-delay: 0.6s; /* Adjust delay as needed */
+}
+
+.tab-text-f {
+    opacity: 1;
+    animation: slideOutFromBottom 0.5s forwards; /* Adjust delay as needed */
+}
+
+/* Tabs container */
+.tab-switches-f {
+    display: flex;
+    justify-content: flex-start;
+    gap: 15px;
+    margin-bottom: 10px;
+    position: relative;
+    opacity: 1;
+    animation: slideOutFromTop 0.5s forwards; /* Fade in animation */
+    animation-delay: 0.4s; /* Delay for tab buttons */
+}
+
+/* Corrected Slide-Out and Slide-In Animations */
+.product-image.slideInFromLeft {
+    animation: slideInFromLeft 0.5s forwards;
+    overflow: hidden;
+}
+
+.product-image.slideOutFromRight {
+    animation: slideOutFromRight 0.5s forwards;
+    overflow: hidden;
+}
+
+.tab-content.slideOutFromLeft {
+    animation: slideOutFromLeft 0.5s forwards; /* Fixed typo */
+    overflow: hidden;
+}
+
+.tab-content.slideInFromRight {
+    animation: slideInFromRight 0.5s forwards;
+    overflow: hidden;
+}
+
+/* Updated Tab Text Styles to Remove Scrollbar */
+.tab-text {
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideInFromLeft 0.5s forwards;
+    overflow: hidden; /* Prevent scrollbar */
+}
+
+.tab-text-f {
+    opacity: 1;
+    transform: translateX(0);
+    animation: slideOutFromRight 0.5s forwards;
+    overflow: hidden; /* Prevent scrollbar */
+}
+
+
+  .add-to-cart-button {
+    position: absolute;
+    bottom: 20px; /* Position the button 20px from the bottom */
+    left: 7.3%;
+    transform: translateX(0%);
+    width: 80%; /* Adjust the width as needed */
+    height: 3rem;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    background: linear-gradient(to right, #8A2BE2, #DDA0DD);
+    color: white;
+    text-align: center;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.1), -5px -5px 10px rgba(255, 255, 255, 0.3);
+    animation: slideInFromBottom 0.7s forwards;
+    animation-delay: 1.1s;
+  }
+  
+  .add-to-cart-button:hover {
+    transform: scale(0.98); /* Sink-in effect */
+    box-shadow: inset 5px 5px 10px rgba(0, 0, 0, 0.1), inset -5px -5px 10px rgba(255, 255, 255, 0.3);
+  }
+
+  /* Tag Styles */
+.tags {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  
+  .tag {
+    background:linear-gradient(to right, #8A2BE2, #DDA0DD);
+    color: var(--text-color);
+    font-size: 0.9rem;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-family: 'Montserrat', sans-serif;
+    transition: transform 0.2s ease;
+  }
+  
+  .tag:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Star Rating Styles */
+  .stars {
+    font-size: 1.8rem;
+    background: linear-gradient(to right, #8A2BE2, #DDA0DD);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+  }
+  
+  .empty-stars {
+    color: #e0e0e000; /* Light grey for unfilled stars */
+  }
+  
+  /* Separation Line Styles */
+  .separator-line {
+    border: none;
+    border-top: 1px var(--button-hover-bg);
+    margin: 25px 0;
+    width: 100%;
+    opacity: 0.6;
+  }
+  
+  /* Text Slide Animation */
+  .tab-text {
+    opacity: 0;
+    transform: translateX(100%);
+    animation: slideInFromLeft 0.5s forwards;
+  }
+  
+  .tab-text-f {
+    opacity: 1;
+    transform: translateX(0);
+    animation: slideOutFromRight 0.5s forwards;
+  }
+  

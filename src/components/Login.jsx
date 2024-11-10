@@ -1,141 +1,132 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect, useContext } from "react";
 import { useAuth } from "../contexts/AuthContext";
-import { Link, useNavigate, useLocation } from "react-router-dom"; // Import useLocation for previous page
-import Navbar from "../components/Navbar2"; 
+import { Link, useNavigate, useLocation } from "react-router-dom";
+import { ThemeContext } from "../App"; // Import ThemeContext
+import "./user.css";
 
 export default function Login() {
   const emailRef = useRef();
   const passwordRef = useRef();
   const { login } = useAuth();
-  const navigate = useNavigate(); // Initialize useNavigate
-  const location = useLocation(); // Get location to capture the previous URL
+  const navigate = useNavigate();
+  const location = useLocation();
+  
+  // Access global dark mode state and toggle function
+  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
 
-  // State to handle error messages
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showHomeButton, setShowHomeButton] = useState(false);
+  const [showLoginForm, setShowLoginForm] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false); // State to track form expansion
 
-  // Get the path the user came from, or default to "/cart"
-  const from = location.state?.from?.pathname || "/cart"; 
+  // New state to track if Sign Up link is clicked
+  const [signUpClicked, setSignUpClicked] = useState(false);
+
+  // Redirect path after successful login
+  const from = location.state?.from?.pathname || "/cart";
+
+  // Set form to expand after a short delay on initial load
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsExpanded(true);
+    }, 100); // Adjust delay as needed (e.g., 1 second)
+
+    return () => clearTimeout(timer); // Cleanup timer on component unmount
+  }, []);
+
+  useEffect(() => {
+    document.body.className = isDarkMode ? "dark-mode" : "light-mode";
+  }, [isDarkMode]);
 
   async function handleSubmit(e) {
     e.preventDefault();
-    setError(""); // Reset error before attempting login
-    setLoading(true); // Set loading state
+    setError("");
+    setLoading(true);
 
     try {
       await login(emailRef.current.value, passwordRef.current.value);
-      setLoading(false); // Stop loading
-      alert("Login successful!");
-      navigate(from); // Redirect to the previous page after successful login
+      setIsExpanded(false); // Collapse form before redirect
+      setShowLoginForm(false);
+      setShowHomeButton(true); // Make the Home button slide out
+      setTimeout(() => navigate(from), 1500); // Delay for animation
     } catch (error) {
       console.error(error);
-      setError("Failed to log in. Please check your credentials."); // Set error message
-      setLoading(false); // Stop loading
+      setError("Failed to log in. Please check your credentials.");
+    } finally {
+      setLoading(false);
     }
   }
 
-  // Inline Styles
-  const containerStyle = {
-    height: "100vh",
-    width: "100vw",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    background: "url('https://imgs.search.brave.com/YdTrZl8rNTnykCTr5LoXLkc2k-3zxbfmb7NIjPRU4dI/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzA4LzI4LzE4LzQ0/LzM2MF9GXzgyODE4/NDQ5Ml9yNGYxb29C/Vm5MOE1wSjBUSUVw/bHB0Y3dVVmxaaXJ0/Uy5qcGc')",
-    backgroundSize: "cover",
+  // Handle Home button click
+  const handleHomeClick = () => {
+    setShowLoginForm(false); // Trigger slide-out animation for form
+    setShowHomeButton(true); // Trigger slide-out animation for Home button
+    setTimeout(() => navigate("/"), 1800); // Navigate home after animation
   };
 
-  const formStyle = {
-    display: "flex",
-    flexDirection: "column",
-    gap: "2rem",
-    padding: "3rem 2rem",
-    background: "rgba(0, 0, 0, 0.607)",
-    backdropFilter: "blur(3px)",
-    borderRadius: "1rem",
-    textAlign: "center",
-  };
-
-  const headingStyle = {
-    textAlign: "center",
-    textTransform: "uppercase",
-    letterSpacing: "5px",
-    fontSize: "45px",
-    fontWeight: "bold",
-    color: "white",
-  };
-
-  const inputStyle = {
-    all: "unset",
-    fontSize: "17px",
-    height: "50px",
-    width: "300px",
-    marginTop: ".2rem",
-    borderBottom: "1px solid white",
-    textAlign: "center",
-    color: "white",
-  };
-
-  const buttonStyle = {
-    height: "50px",
-    width: "300px",
-    marginTop: ".2rem",
-    backgroundColor: "#ff884d",
-    color: "white",
-    fontWeight: "bold",
-    fontSize: "20px",
-    border: "none",
-    borderRadius: "50px",
-    cursor: "pointer",
-    transition: ".1s ease-in",
-    textAlign: "center",
-  };
-
-  const buttonHoverStyle = {
-    transform: "scale(1.05)",
+   const handleSignUpClick = () => {
+    setSignUpClicked(true); 
+    setShowLoginForm(false);
+    setShowHomeButton(true); // Make the Home button slide out
+    setTimeout(() => navigate("/signup"), 1600); // Delay for animation and navigate to Sign Up
   };
 
   return (
-    <div>
-      <Navbar />
-    <div style={containerStyle}>
-      <form onSubmit={handleSubmit} style={formStyle}>
-        <h2 style={headingStyle}>Login</h2>
-        
-        {/* Display error message if login fails */}
-        {error && <p style={{ color: "red" }}>{error}</p>}
-        
+    <div className="login-container">
+      {/* Dark Mode Toggle Button */}
+      <button className="dark-mode-toggle" onClick={toggleDarkMode}>
+        <span className={isDarkMode ? "icon-moon" : "icon-sun"}></span>
+      </button>
+
+      <form 
+        onSubmit={handleSubmit} 
+        className={`${showLoginForm ? "login-form-i" : "login-form-f"} ${isExpanded ? "expanded" : ""}`} // Adjust class based on state
+      >
+        <h2 className={showLoginForm && !signUpClicked ? "login-heading-i" : "login-heading-f"}>LOGIN</h2>
+
+        {error && <p className="login-error">{error}</p>}
+
         <input
           type="email"
           ref={emailRef}
           placeholder="Email"
           required
-          style={inputStyle}
+          className={showLoginForm && !signUpClicked ? "login-email-i" : "login-email-f"}
         />
         <input
           type="password"
           ref={passwordRef}
           placeholder="Password"
           required
-          style={inputStyle}
+          className={showLoginForm && !signUpClicked ? "login-pass-i" : "login-pass-f"}
         />
         <button
           type="submit"
-          style={buttonStyle}
-          disabled={loading} // Disable button when loading
-          onMouseOver={(e) => (e.currentTarget.style.transform = buttonHoverStyle.transform)}
-          onMouseOut={(e) => (e.currentTarget.style.transform = "scale(1)")}
+          className={showLoginForm && !signUpClicked ? "login-button-i" : "login-button-f"} // Adjust class based on state
+          disabled={loading}
         >
-          {loading ? "Logging in..." : "LOGIN"} {/* Show loading state */}
+          {loading ? "..." : "SIGN IN"}
         </button>
-        <p style={{ textAlign: "center", color: "white" }}>
-          Don't have an account?{" "}
-          <Link to="/signup" style={{ color: "#ff884d", textDecoration: "underline" }}>
-            Sign Up
+
+        <p>
+          <Link 
+            to="#" 
+            className={showLoginForm && !signUpClicked ? "signup-link-i" : "signup-link-f"} // Adjust class based on state
+            onClick={handleSignUpClick} // Handle Sign Up click
+          >
+            Create
           </Link>
         </p>
       </form>
+
+      {/* Home Button */}
+      <button 
+        className={showHomeButton || signUpClicked ? "home-button-login-f" : "home-button-login-i"} // Animated Home button
+        onClick={handleHomeClick}
+      >
+        Home
+      </button>
     </div>
-  </div>
   );
 }

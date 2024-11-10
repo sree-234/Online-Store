@@ -1,0 +1,156 @@
+/* Style for the body to make it full height and center everything */
+.p-body {
+  margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--div-background, #fff); /* Set a background color */
+  transition: background-color 0.5s ease, color 0.5s ease; /* Smooth transition */
+}
+
+/* Light mode styles */
+.light-mode {
+  background-color: #f0f0f3;
+  color: black;
+  --div-background: #f0f0f3;
+  --highlight-color: rgba(255, 255, 255, 0.7);
+  transition: background-color 0.5s ease, color 0.5s ease;
+
+  /* Neumorphic effect for light mode */
+  .p-div-i,
+  .p-div-f,
+  .p-div-f-reverse
+  {
+    box-shadow: inset 10px 10px 20px rgba(0, 0, 0, 0.15),
+      inset -10px -10px 20px var(--highlight-color);
+  }
+}
+
+/* Dark mode styles */
+.dark-mode {
+  background-color: #3b3b3b;
+  color: white;
+  --div-background: #3b3b3b;
+  --highlight-color: rgba(255, 255, 255, 0.05);
+  transition: background-color 0.5s ease, color 0.5s ease;
+
+  /* Neumorphic effect for dark mode */
+  .p-div-i,
+  .p-div-f,
+  .p-div-f-reverse
+  {
+    box-shadow: inset 10px 10px 20px rgba(0, 0, 0, 0.15),
+      inset -10px -10px 20px var(--highlight-color);
+  }
+}
+
+/* Base styling for the animated p-div container */
+.p-div-i,
+.p-div-f,
+.p-div-f-reverse {
+  width: 260px;
+  height: 260px;
+  background-color: var(--div-background, #fff);
+  border-radius: 15px;
+  text-align: center;
+  overflow-y: scroll; /* Enable vertical scrolling */
+  transition: height 0.5s ease, width 0.5s ease, transform 0.5s ease,
+    background-color 0.5s ease, box-shadow 0.5s ease;
+  display: grid; /* Grid layout for product divs */
+  grid-template-columns: repeat(4, 1fr); /* 4 divs per row */
+  gap: 20px; /* Space between product divs */
+  padding: 20px; /* Padding for spacing */
+}
+
+/* Expanded state for p-div */
+.p-div-f {
+  width: 80vw;
+  height: 80vh;
+}
+
+/* Reversed state for p-div */
+.p-div-f-reverse {
+  height: 260px;
+  width: 260px;
+}
+
+/* Styling for product divs */
+.product-div-i {
+  width: 19vw; /* Full width of the column */
+  height: 30vh;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  opacity: 0;
+  animation: slideInFromLeft 0.5s ease forwards;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15),
+    -10px -10px 20px var(--highlight-color);
+}
+
+.product-div-f {
+  width: 19vw; /* Full width of the column */
+  height: 30vh;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  cursor: pointer;
+  animation: slideOutFromRight 0.5s ease forwards;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15),
+    -10px -10px 20px var(--highlight-color);
+}
+
+/* Styling for product columns */
+.product-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* Space between product divs */
+  width: 23%; /* Adjust width to ensure four columns fit with space */
+}
+
+/* Product image styling */
+.product-image {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+/* Hover overlay for product divs */
+.hover-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.product-div:hover .hover-overlay {
+  opacity: 1; /* Show overlay on hover */
+}
+
+/* Hide scrollbar for Webkit browsers (Chrome, Safari, etc.) */
+.p-div-i::-webkit-scrollbar {
+  width: 0px; /* Set the width of the scrollbar to 0 */
+  height: 0px; /* Set the height of the scrollbar to 0 */
+  background: transparent; /* Make the scrollbar background transparent */
+}
+
+/* Hide scrollbar for Firefox */
+.p-div-i {
+  scrollbar-width: none; /* Hide the scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for Internet Explorer and Edge */
+}
+
+/* Hide scrollbar for Internet Explorer and Edge */
+.p-div-i::-ms-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+

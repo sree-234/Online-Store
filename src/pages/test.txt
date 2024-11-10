@@ -1,0 +1,149 @@
+import React, { useEffect, useState, useContext } from "react";
+import { useNavigate } from "react-router-dom";
+// import { useCart } from "../contexts/CartContext"; // Comment out if using local cart
+// import { db } from "../firebaseConfig"; // Comment out Firebase import
+// import { doc, setDoc, getDoc } from "firebase/firestore"; // Comment out Firestore functions
+import { useAuth } from "../contexts/AuthContext";
+import CheckoutButton from "../components/CheckoutButton";
+import { ThemeContext } from "../App"; // Import ThemeContext
+import "./cart.css"; // Import the CSS file for styling
+
+export default function Cart() {
+  // Temporary local cart
+  const [cart, setCart] = useState([
+    { id: 1, name: "Product 1", price: 100, quantity: 2 },
+    { id: 2, name: "Product 2", price: 200, quantity: 1 },
+    // Add more items as needed
+  ]);
+
+  const { currentUser } = useAuth();
+  const navigate = useNavigate();
+  
+  // Access global dark mode state and toggle function
+  const { isDarkMode, toggleDarkMode } = useContext(ThemeContext);
+
+  const [isExpanded, setIsExpanded] = useState(false);
+
+  // Trigger the animation with a delay of 1 second on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsExpanded(true);
+    }, 100); // 100 ms 
+    return () => clearTimeout(timer); // Cleanup the timer on component unmount
+  }, []);
+
+  // Apply the correct theme class to the body
+  useEffect(() => {
+    document.body.className = isDarkMode ? "dark-mode" : "light-mode";
+  }, [isDarkMode]);
+
+  // Redirect to login if no user is logged in
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/login");
+    }
+  }, [currentUser, navigate]);
+
+  // Calculate total price based on product quantity
+  const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+  // Function to update cart quantity
+  const updateCartQuantity = (id, newQuantity) => {
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id
+          ? { ...item, quantity: Math.max(newQuantity, 0) } // Ensure quantity is not negative
+          : item
+      )
+    );
+  };
+
+  // Comment out the Firebase functions
+  // const saveCartToFirestore = async () => {
+  //   if (currentUser) {
+  //     const userCartRef = doc(db, "carts", currentUser.uid);
+  //     try {
+  //       await setDoc(userCartRef, { cart }, { merge: true });
+  //       console.log("Cart saved to Firestore");
+  //     } catch (error) {
+  //       console.error("Error saving cart: ", error);
+  //     }
+  //   }
+  // };
+
+  // const fetchCartFromFirestore = async () => {
+  //   if (currentUser) {
+  //     const userCartRef = doc(db, "carts", currentUser.uid);
+  //     try {
+  //       const cartDoc = await getDoc(userCartRef);
+  //       if (cartDoc.exists()) {
+  //         setCart(cartDoc.data().cart);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching cart: ", error);
+  //     }
+  //   }
+  // };
+
+  // Comment out the useEffect for fetching and saving cart data
+  // useEffect(() => {
+  //   if (currentUser) {
+  //     fetchCartFromFirestore();
+  //   }
+  // }, [currentUser]);
+
+  // useEffect(() => {
+  //   saveCartToFirestore();
+  // }, [cart]);
+
+  return (
+    <div className="grid-container">
+      {/* Dark Mode Toggle Button */}
+      <button className="dark-mode-toggle" onClick={toggleDarkMode}>
+        <span className={isDarkMode ? "icon-moon" : "icon-sun"}></span>
+      </button>
+
+      <h1 className="your-cart-i">CART</h1>
+      <div className={`list-div-i ${isExpanded ? "list-div-f" : ""}`}>
+        {/* Centered Neomorphic Box */}
+        {cart.length === 0 ? (
+          <p className="empty-i">Your cart is empty</p>
+        ) : (
+          <div className="list-container-expanded">
+            {cart.map((item, index) => (
+              <div className="cart-item" key={index}>
+                <div>
+                  <h3>{item.name}</h3>
+                  <p>{item.price} INR</p>
+                  <p>Quantity: {item.quantity}</p>
+                </div>
+
+                <div className="quantity-controls">
+                  <button
+                    onClick={() => updateCartQuantity(item.id, item.quantity - 1)}
+                    className="quantity-button quantity-minus"
+                  >
+                    &minus;
+                  </button>
+                  <span>x{item.quantity}</span>
+                  <button
+                    onClick={() => updateCartQuantity(item.id, item.quantity + 1)}
+                    className="quantity-button quantity-plus"
+                  >
+                    &#43;
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            <h2 className="total-price">Total: INR {total}</h2>
+            <CheckoutButton />
+            <button onClick={() => navigate("/")} className="checkout-button">
+              Return to Shopping
+            </button>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

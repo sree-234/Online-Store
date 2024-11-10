@@ -13,12 +13,10 @@ body, h1, h2, p, div {
   color: black;
   .center-div,
   .outside-div {
-  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15), 
-              -10px -10px 20px var(--highlight-color); /* Protruding shadow */
+  box-shadow: inset 10px 10px 20px rgba(0, 0, 0, 0.15), 
+              inset -10px -10px 20px var(--highlight-color); /* Protruding shadow */
 }
 }
-
-
 
 /* Dark mode styles */
 .dark-mode {
@@ -54,9 +52,19 @@ body, h1, h2, p, div {
   align-items: center;
   border-radius: 15px;
   background-color: var(--div-background);
-  box-shadow: inset 10px 10px 20px rgba(0, 0, 0, 0.15), 
+  box-shadow: inset 10px 10px 20px rgba(0, 0, 0, 0.15),
               inset -10px -10px 20px var(--highlight-color);
   text-align: center;
+  transition: height 0.5s ease 0.7s, transform 0.5s ease 0.7s; /* Smooth transition for expansion */
+}
+
+/* Expanded styling for center div */
+.center-div.expand {
+  height: 400px; /* Increase height to accommodate login form */
+  transform: translateY(-10%); /* Center vertically */
+  /* Align elements to the top for form layout */
+  animation-delay: 0.7;
+  
 }
 
 /* Sunken div styles with animations */
@@ -66,16 +74,34 @@ body, h1, h2, p, div {
   box-shadow: inset 10px 10px 20px rgba(0, 0, 0, 0.15), 
               inset -10px -10px 20px var(--highlight-color);
   transition: all 0.3s ease;
-  opacity: 0; /* Initially invisible */
 }
 
+.fade-in {
+  opacity: 0; /* Fully visible */
+  transition: opacity 0.5s ease-in;
+}
+
+/* Fade-out class when showing the login form */
+.fade-out {
+  opacity: 1; /* Fade out */
+  transition: opacity 0.5s ease-out;
+}
 
 /* Image inside the left div */
-.leftimage {
+.leftimage-i {
   position: relative;
-  transform: scale(1.3); /* Tilted and enlarged */
-  left: -150px; /* Slightly offscreen */
-  top: 120px;
+  transform: scale(1); /* Tilted and enlarged */
+  left: -250px; /* Slightly offscreen */
+  top: 90px;
+  width: auto;
+  height: auto;
+}
+
+.leftimage-f {
+  position: relative;
+  transform: scale(1); /* Tilted and enlarged */
+  left: -250px; /* Slightly offscreen */
+  top: 100px;
   width: auto;
   height: auto;
 }
@@ -146,23 +172,38 @@ body, h1, h2, p, div {
 
 
 
-/* Left div */
-.left-div {
+/* Left div initial and final states */
+.left-div-i {
   grid-column: 1;
   grid-row: 2;
   width: 200px;
   height: 550px;
-  justify-self: end; 
+  justify-self: end;
   align-self: center;
   margin-top: 250px;
+  position: relative;
+  overflow: hidden;
+  opacity: 0;
   animation: slideInFromTop 0.5s forwards;
-  animation-delay: 1.5s;
-  position: relative; /* Ensures image stays positioned within the div */
-  overflow: hidden; /* Prevents overflow */
+  animation-delay: 1.9s;
 }
 
-/* Right div */
-.right-div {
+.left-div-f {
+  grid-column: 1;
+  grid-row: 2;
+  width: 200px;
+  height: 550px;
+  justify-self: end;
+  align-self: center;
+  margin-top: 250px;
+  position: relative;
+  overflow: hidden;
+  animation: slideOutFromTop 0.5s forwards;
+  animation-delay: 0.2s;
+}
+
+/* Right div initial and final states */
+.right-div-i {
   grid-column: 3;
   grid-row: 2;
   width: 200px;
@@ -171,12 +212,26 @@ body, h1, h2, p, div {
   align-self: center;
   overflow: hidden;
   margin-bottom: 250px;
+  opacity: 0;
   animation: slideInFromBottom 0.5s forwards;
-  animation-delay: 1.7s;
+  animation-delay: 2.1s;
 }
 
-/* Top div */
-.top-div {
+.right-div-f {
+  grid-column: 3;
+  grid-row: 2;
+  width: 200px;
+  height: 550px;
+  justify-self: start;
+  align-self: center;
+  overflow: hidden;
+  margin-bottom: 250px;
+  animation: slideOutFromBottom 0.5s forwards;
+  animation-delay: 0.1s;
+}
+
+/* Top div initial and final states */
+.top-div-i {
   grid-column: 2;
   grid-row: 1;
   width: 550px;
@@ -185,12 +240,26 @@ body, h1, h2, p, div {
   align-self: end;
   overflow: hidden;
   margin-right: 250px;
+  opacity: 0;
   animation: slideInFromLeft 0.5s forwards;
-  animation-delay: 1.9s;
+  animation-delay: 1.5s;
 }
 
-/* Bottom div */
-.bottom-div {
+.top-div-f {
+  grid-column: 2;
+  grid-row: 1;
+  width: 550px;
+  height: 200px;
+  justify-self: center;
+  align-self: end;
+  overflow: hidden;
+  margin-right: 250px;
+  animation: slideOutFromLeft 0.5s forwards;
+  animation-delay: 0.4s;
+}
+
+/* Bottom div initial and final states */
+.bottom-div-i {
   grid-column: 2;
   grid-row: 3;
   width: 550px;
@@ -199,8 +268,43 @@ body, h1, h2, p, div {
   align-self: start;
   margin-left: 250px;
   overflow: hidden;
+  opacity: 0;
   animation: slideInFromRight 0.5s forwards;
-  animation-delay: 2.1s;
+  animation-delay: 1.7s;
+}
+
+.bottom-div-f {
+  grid-column: 2;
+  grid-row: 3;
+  width: 550px;
+  height: 200px;
+  justify-self: center;
+  align-self: start;
+  margin-left: 250px;
+  overflow: hidden;
+  animation: slideOutFromRight 0.5s forwards;
+  animation-delay: 0.3s;
+}
+
+.hover-overlay {
+  font-size: 1.5rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: var(--hover-color); /* Dark semi-transparent overlay */
+  color:  var(--text-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* Show overlay on hover */
+.grid-item:hover .hover-overlay {
+  opacity: 1;
 }
 
 /* Keyframes for sliding animations */
@@ -248,8 +352,52 @@ body, h1, h2, p, div {
   }
 }
 
+@keyframes slideOutFromLeft {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-10%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutFromRight {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(10%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutFromTop {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-10%);
+    opacity: 0;
+  }
+}
+
+@keyframes slideOutFromBottom {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(10%);
+    opacity: 0;
+  }
+}
+
 /* Sliding animations for text */
-.welcome-to {
+.welcome-to-i{
   font-size: 2.5rem;
   font-weight: 300;
   color: var(--text-color);
@@ -258,9 +406,19 @@ body, h1, h2, p, div {
   animation: slideInFromBottom 0.5s forwards;
 }
 
-.asterix {
+.welcome-to-f{
+  font-size: 2.5rem;
+  font-weight: 300;
+  color: var(--text-color);
+  margin: 0;
+  opacity: 1;
+  animation: slideOutFromBottom 0.5s forwards;
+  
+}
+
+.asterix-i {
   font-size: 4rem;
-  font-weight: bold;
+  font-weight: 400;
   background: linear-gradient(to right, #8A2BE2, #DDA0DD);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -270,15 +428,168 @@ body, h1, h2, p, div {
   animation-delay: 0.5s;
 }
 
+/* Slide-out animation for "Asterix" */
+.asterix-f {
+  font-size: 4rem;
+  font-weight: 400;
+  background: linear-gradient(to right, #8A2BE2, #DDA0DD);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  opacity: 1;
+  animation: slideOutFromBottom 0.5s forwards;
+  animation-delay: 0.5s;
+  animation-delay: 0.3;
+}
+
+.login-button-home-i {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 8px;
+  position: absolute;
+  left: 20px;
+  top: 45%;
+  opacity: 0; /* Start hidden */
+  transform: translateY(-10%); /* Initial position for slide in */
+  transition: color 0.3s ease, background-color 0.3s ease;
+  animation: slideInFromTop 0.5s forwards; /* Slide in animation */
+  animation-delay: 1.6s; /* Adjust delay if needed */
+}
+
+/* Final state - slide out to the top */
+.login-button-home-f {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 8px;
+  position: absolute;
+  left: 20px;
+  top: 45%;
+  opacity: 1; /* Start visible */
+  transform: translateY(0); /* Starting position for slide out */
+  transition: color 0.3s ease, background-color 0.3s ease;
+  animation: slideOutFromTop 0.5s forwards; /* Slide out animation */
+  animation-delay: 0.4s; /* Adjust delay if needed */
+}
 /* Variable settings for dark mode and light mode */
+
+/* Initial state - slide in from the top for the cart button */
+.cart-i {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 8px;
+  position: absolute;
+  left: 20px; /* Adjusted to align to the right */
+  top: 55%;
+  opacity: 0; /* Start hidden */
+  transform: translateY(-10%); /* Initial position for slide in */
+  transition: color 0.3s ease, background-color 0.3s ease;
+  animation: slideInFromTop 0.5s forwards; /* Slide in animation */
+  animation-delay: 1.8s; /* Adjust delay if needed */
+}
+
+/* Final state - slide out to the top for the cart button */
+.cart-f {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 8px;
+  position: absolute;
+  left: 20px; /* Adjusted to align to the right */
+  top: 55%;
+  opacity: 1; /* Start visible */
+  transform: translateY(0); /* Starting position for slide out */
+  transition: color 0.3s ease, background-color 0.3s ease;
+  animation: slideOutFromTop 0.5s forwards; /* Slide out animation */
+  animation-delay: 0.4s; /* Adjust delay if needed */
+}
+
+.home-button-back-i {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 8px;
+  position: absolute;
+  left: 20px;
+  top: 35%;
+  opacity: 0; /* Start hidden */
+  transform: translateY(-10%); /* Initial position for slide in */
+  transition: color 0.3s ease, background-color 0.3s ease;
+  animation: slideInFromTop 0.5s forwards; /* Slide in animation */
+  animation-delay: 1.4s; /* Adjust delay if needed */
+}
+
+/* Final state - slide out to the top */
+.home-button-back-f {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--text-color);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 8px;
+  position: absolute;
+  left: 20px;
+  top: 35%;
+  opacity: 1; /* Start visible */
+  transform: translateY(0); /* Starting position for slide out */
+  transition: color 0.3s ease, background-color 0.3s ease;
+  animation: slideOutFromTop 0.5s forwards; /* Slide out animation */
+  animation-delay: 0.4s; /* Adjust delay for consistency */
+}
+
 .light-mode {
   --div-background: #f0f0f3;
   --highlight-color: rgba(255, 255, 255, 0.7);
   --text-color: black;
+  --hover-color: rgba(224, 224, 227, 0.7); 
 }
 
 .dark-mode {
   --div-background: #3b3b3b;
   --highlight-color: rgba(255, 255, 255, 0.05);
   --text-color: white;
+  --hover-color: rgba(74, 74, 74, 0.7);
 }
+
