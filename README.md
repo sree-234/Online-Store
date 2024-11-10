@@ -1,8 +1,5 @@
-# React + Vite
+# To sreejith
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Cart isn't set up. The current content is a temporary cart set up in the file. The firebase code is commented.
+- Add to cart does not work. It can send any details from the API to firebase
+- Profile page is abandoned. You can only access it manually and it doesn't work
