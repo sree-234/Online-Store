@@ -47,7 +47,7 @@
   }
   
   
-  .desc-div-i {
+  .desc-div-i, .desc-div-f {
     width: 300px;
     height: 300px;
     background-color: var(--div-background, #fff);
@@ -230,75 +230,77 @@
   
 
 
+/* Tab-div positioned relative to desc-div */
 .tab-div {
-    position:relative;
-    background-color: var(--div-background, #fff);
-    border-radius: 15px;
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15),
-                -10px -10px 20px var(--highlight-color);
-    padding: 20px;
-    margin-top: 160px;
-    margin-left: 630px;
-    transform: translateX(100%); /* Start off-screen to the right */
-    opacity: 0;
-    animation: slideInFromRight 0.5s forwards; /* Slide in animation */
-    animation-delay: 1.2s; /* Delay for initial slide-in effect */
-    width: 45%;
-    height: 67%;
-    display: flex;
-    flex-direction: column;
+  position: absolute; /* Position relative to desc-div */
+  bottom: 32px; /* Align to the bottom */
+  right: 70px; /* Align to the right */
+  background-color: var(--div-background, #fff);
+  border-radius: 15px;
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15), -10px -10px 20px var(--highlight-color);
+  padding: 20px;
+  opacity: 0;
+  animation: slideInFromRight 0.5s forwards; /* Slide in animation */
+  animation-delay: 1.2s; /* Delay for initial slide-in effect */
+  width: 45%; /* Adjusted width */
+  height: 67%; /* Adjusted height */
+  display: flex;
+  flex-direction: column;
 }
 
 /* Tabs container */
 .tab-switches {
-    display: flex;
-    justify-content: flex-start;
-    gap: 15px;
-    margin-bottom: 10px;
-    position: relative;
-    opacity: 0;
-    animation: slideInFromTop 0.5s forwards; /* Fade in animation */
-    animation-delay: 1.4s; /* Delay for tab buttons */
+  position: relative; /* Relative to tab-div */
+  display: flex;
+  justify-content: flex-start;
+  gap: 2%; /* Use percentage for a responsive gap */
+  margin-bottom: 1%; /* Use percentage for a responsive margin */
+  opacity: 0;
+  animation: slideInFromTop 0.5s forwards;
+  animation-delay: 1.4s;
 }
 
-/* Tab button styles */
 .tab-button {
-    background-color: transparent;
-    border: none;
-    border-radius: 15px;
-    font-size: 1rem;
-    font-family: 'Montserrat', sans-serif;
-    padding: 20px 40px;
-    cursor: pointer;
-    transition: color 0.3s ease;
-    outline: none;
-    opacity: 0;
-    color: var(--text-color);
-    box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15),
-                -10px -10px 20px var(--highlight-color);
-    animation: slideInFromTop 0.5s forwards; /* Fade in animation */
-    animation-delay: 1.4s;
-    
+  position: relative; /* Relative to .tab-div */
+  background-color: transparent;
+  border: none;
+  border-radius: 10%; /* Use a percentage for a responsive border radius */
+  font-size: 1em; /* Use em units for font size to scale with the parent */
+  font-family: 'Montserrat', sans-serif;
+  padding: 2% 5%; /* Use percentages for responsive padding */
+  cursor: pointer;
+  transition: color 0.3s ease;
+  outline: none;
+  color: var(--text-color);
+  box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.15),
+              -10px -10px 20px var(--highlight-color);
+  opacity: 0;
+  animation: slideInFromTop 0.5s forwards;
+  animation-delay: 1.4s;
+  width: auto; /* Let the width adjust dynamically */
+  flex: 1; /* Allow buttons to grow and shrink evenly within the parent container */
 }
+
 
 /* Active tab button */
 .tab-button.active {
-    color: #8a2be2;
-    font-weight: 400;
+  color: #8a2be2;
+  font-weight: 400;
 }
 
-/* Tab display area */
+/* Tab text area */
 .tab-text {
-    font-size: large;
-    text-align: left;
-    color: var(--text-color);
-    overflow-y: auto;
-    max-height: calc(100% - 40px);
-    line-height: 1.6;
-    padding: 10px;
-    opacity: 0;
-    animation: slideInFromBottom 0.5s forwards; /* Fade in animation for content */
-    animation-delay: 1.8s; /* Delay for content to appear last */
+  position: relative; /* Make relative to tab-div */
+  font-size: large;
+  text-align: left;
+  color: var(--text-color);
+  overflow-y: auto;
+  max-height: calc(100% - 40px);
+  line-height: 1.6;
+  padding: 10px;
+  opacity: 0;
+  animation: slideInFromBottom 0.5s forwards;
+  animation-delay: 1.8s;
 }
 
 /* -f classes for slide-out animations */
@@ -415,13 +417,13 @@
   }
 
   /* Tag Styles */
-.tags {
+  .tags {
+    position: relative; /* Make relative to tab-div */
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
     margin-top: 10px;
   }
-  
   .tag {
     background:linear-gradient(to right, #8A2BE2, #DDA0DD);
     color: var(--text-color);
@@ -438,6 +440,7 @@
   
   /* Star Rating Styles */
   .stars {
+    position: relative; /* Make relative to tab-div */
     font-size: 1.8rem;
     background: linear-gradient(to right, #8A2BE2, #DDA0DD);
     -webkit-background-clip: text;
